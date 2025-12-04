@@ -2,28 +2,42 @@
 
 import Image from "next/image";
 import { eventNames } from "process";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
+
+function generateRandomString(length: number) {
+  const choices: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  let result = ""
+  for (let i = 0; i < length; i++) {
+    let randomIndex = Math.floor(Math.random() * choices.length)
+    result += choices[randomIndex]
+  }
+  return result
+}
+
+// installer sqlite
 
 export default function Home() {
 
   const [fileinput, setFileinput] = useState<File | null>(null)
-  const [linktofile, setLinktofile] = useState('')
-  // function chargeFile()
+  const [linktofile, setLinktofile] = useState("")
 
-  // /**
-  //  * @param {React.ChangeEvent<HTMLInputElement>} e
-  //  */
+    
+    useEffect(() => {
+      console.log("link", linktofile);
+    }, [linktofile]);
+
   const changeFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     // let files = []
-    
+
     let fileinput = e.target.files?.[0]
-    if (fileinput)
-    {
+    if (fileinput) {
       setFileinput(fileinput)
+      setLinktofile(generateRandomString(4))
     }
-    // console.log(file?.name)
-    // console.log(file?.size)
+    console.log(fileinput?.name)
+
+
 
   }
 
