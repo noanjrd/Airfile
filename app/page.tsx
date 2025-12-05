@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 
 
 function generateRandomString(length: number) {
-  const choices: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  const choices: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@"
   let result = ""
   for (let i = 0; i < length; i++) {
     let randomIndex = Math.floor(Math.random() * choices.length)
@@ -21,11 +21,15 @@ export default function Home() {
 
   const [fileinput, setFileinput] = useState<File | null>(null)
   const [linktofile, setLinktofile] = useState("")
+  const [filepath, setPathfile] = useState("")
 
     
     useEffect(() => {
       console.log("link", linktofile);
     }, [linktofile]);
+    useEffect(() => {
+      console.log("path", filepath);
+    }, [filepath]);
 
   const changeFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     // let files = []
@@ -34,11 +38,9 @@ export default function Home() {
     if (fileinput) {
       setFileinput(fileinput)
       setLinktofile(generateRandomString(4))
+      setPathfile(generateRandomString(30))
     }
     console.log(fileinput?.name)
-
-
-
   }
 
   return (
