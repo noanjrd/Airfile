@@ -1,23 +1,10 @@
-"use client"; // <--- Add this line
+"use client";
 
 import Image from "next/image";
 import { eventNames } from "process";
 import React, { useState, useEffect } from "react";
-// import {POST} from "./api/posts"
 
 
-function generateRandomString(length: number) {
-  const choices: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@"
-  let result = ""
-  for (let i = 0; i < length; i++) {
-    let randomIndex = Math.floor(Math.random() * choices.length)
-    result += choices[randomIndex]
-  }
-  return result
-}
-
-
-// installer sqlite
 
 export default function Home() {
 
@@ -26,19 +13,18 @@ export default function Home() {
   const [filepathvalue, setFilepathvalue] = useState("")
 
 
-    const fetchData = async () =>
-    {
-      const res = await fetch("api/get")
-      const data = await res.json();
-      console.log(data)
-    };
-    
-    useEffect(() => {
-      console.log("link", linktofile);
-    }, [linktofile]);
-    useEffect(() => {
-      console.log("path", filepathvalue);
-    }, [filepathvalue]);
+  const fetchData = async () => {
+    const res = await fetch("api/get")
+    const data = await res.json();
+    console.log(data)
+  };
+
+  useEffect(() => {
+    console.log("link", linktofile);
+  }, [linktofile]);
+  useEffect(() => {
+    console.log("path", filepathvalue);
+  }, [filepathvalue]);
 
   const changeFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     // let files = []
@@ -46,27 +32,29 @@ export default function Home() {
     let fileinput = e.target.files?.[0]
     if (fileinput) {
       setFileinput(fileinput)
-      setLinktofile(generateRandomString(4))
-      setFilepathvalue(generateRandomString(30))
     }
     console.log(fileinput?.name)
     fetchData()
 
   }
+
+
   async function PushFiles() {
-    const res = await fetch("/api/post", {
+    if (!fileinput) {
+      console.log("No file selected");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("file", fileinput);
+
+    const res = await fetch("/api/upload", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        filepath: filepathvalue,
-        link: linktofile,
-      }),
+      body: formData
     });
 
     const data = await res.json();
     console.log(data);
+    return ;
   }
 
 
