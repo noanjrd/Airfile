@@ -1,8 +1,10 @@
 "use client";
 
+import { link } from "fs";
 import Image from "next/image";
 import { eventNames } from "process";
 import React, { useState, useEffect } from "react";
+import QRCodeComponent from "@/components/QRCodeComponent";
 
 
 
@@ -53,7 +55,8 @@ export default function Home() {
     });
 
     const data = await res.json();
-    console.log(data);
+    const link = data.link;
+    setLinktofile(link)
     return ;
   }
 
@@ -65,6 +68,13 @@ export default function Home() {
 
         <button className="border bg-black rounded w-40 h-20 text-white text-lg" onClick={PushFiles}>Upload</button>
         <p className="text-black text-lg">{fileinput?.name}</p>
+        { linktofile && (
+          <div><p className="text-black text-lg"><br/>Link to send : https://site.com/f/{linktofile}</p>
+          <QRCodeComponent text={"https://site.com/f/" + linktofile} /></div>
+          
+        )}
+        
+          
       </div>
     </>
   );
