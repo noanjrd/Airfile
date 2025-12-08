@@ -38,7 +38,7 @@ export async function POST(req: Response) {
         await db.insert(files).values(
             {
                 filename: file.name,
-                filepath: iDfile,
+                filepath: (iDfile + extension),
             }
         )
         const pagelink = generateRandomString(5)

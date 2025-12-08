@@ -15,11 +15,11 @@ export default function Home() {
   const [filepathvalue, setFilepathvalue] = useState("")
 
 
-  const fetchData = async () => {
-    const res = await fetch("api/get")
-    const data = await res.json();
-    console.log(data)
-  };
+  // const fetchData = async () => {
+  //   const res = await fetch("api/get")
+  //   const data = await res.json();
+  //   console.log(data)
+  // };
 
   useEffect(() => {
     console.log("link", linktofile);
@@ -36,7 +36,7 @@ export default function Home() {
       setFileinput(fileinput)
     }
     console.log(fileinput?.name)
-    fetchData()
+    // fetchData()
 
   }
 

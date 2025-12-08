@@ -8,6 +8,27 @@
       "when": 1765023260126,
       "tag": "0000_workable_maximus",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1765204070599,
+      "tag": "0001_milky_bloodaxe",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1765204372075,
+      "tag": "0002_tiny_norrin_radd",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1765204389987,
+      "tag": "0003_new_drax",
+      "breakpoints": true
     }
   ]
 }
