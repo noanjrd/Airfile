@@ -5,6 +5,7 @@ import Image from "next/image";
 import { eventNames } from "process";
 import React, { useState, useEffect } from "react";
 import QRCodeComponent from "@/components/QRCodeComponent";
+import {copytoClipboard} from "../utils/copytoClipboard"
 
 
 
@@ -61,16 +62,21 @@ export default function Home() {
   }
 
 
+
+  
   return (
     <>
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans">
-        <input type="file" className="border border-black text-black" onChange={changeFileInput} />
+        
+        <input type="file" className="border border-black text-black" onChange={changeFileInput} /> {/*Ici pas de () a la focntion donc c est uen reference a la focntion */}
 
-        <button className="border bg-black rounded w-40 h-20 text-white text-lg" onClick={PushFiles}>Upload</button>
+        <button className="border bg-black rounded w-40 h-20 text-white text-lg" onClick={PushFiles}>Upload</button> {/* Ici pareil */}
         <p className="text-black text-lg">{fileinput?.name}</p>
         { linktofile && (
           <div><p className="text-black text-lg"><br/>Link to send : https://site.com/f/{linktofile}</p>
-          <QRCodeComponent text={"https://site.com/f/" + linktofile} /></div>
+          <QRCodeComponent text={"https://site.com/f/" + linktofile} />
+          <button className="text-white bg-black rounded-lg w-30 h-20" onClick={() => copytoClipboard("http://localhost:3000/f/" + linktofile)}>Copier</button> {/* Ici on fait une focntion flechee pour que elle soit execute au click , elle reagit au changememtnd e la varable linktofile*/}
+          </div>
           
         )}
         

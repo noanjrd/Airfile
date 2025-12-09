@@ -6,12 +6,19 @@ import { readFile } from "fs/promises";
 import { Blob } from "buffer"; 
 import path from "path"
 
-export async function POST(req:Response) {
+export async function POST(req:Request) {
   try {
     const request = await req.json()
     const pagelink = request.id
 
     const data = await db.select().from(pages).where(eq(pages.link, pagelink))
+    console.log(data);
+    if (data.length === 0)
+    {
+      console.log("File not found")
+      return Response.json({success : "false", reason : "filenotfound"
+      })
+    }
     const filename = await db.select().from(files).where(eq(files.filepath, data[0].filepath))
   
     console.log("File name" ,filename)

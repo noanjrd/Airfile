@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 // import { Blob } from "buffer";
 
-//dJE DOIS FAIRE TT LES TRY ET VERIFICATIONS
+//JE DOIS FAIRE TT LES TRY ET VERIFICATIONS
 
 export default function FilePage() {
     const params = useParams();
@@ -22,7 +22,11 @@ export default function FilePage() {
             })
             const blob = await response.blob()
             const headercontent = response.headers.get('Content-Disposition')
-            // console.log(filename)
+            if (!headercontent)
+            {
+                console.log("File not found")
+                return ({error : "File not found"})
+            }
             const filename = headercontent?.split('"')[1]
             console.log(filename)
 
@@ -44,7 +48,6 @@ export default function FilePage() {
         // setImage()
         // console.log(data)
     }
-    // const 
     return (
         <>
             <div className="w-full h-full flex justify-center items-center">

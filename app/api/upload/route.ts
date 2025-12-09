@@ -30,7 +30,7 @@ export async function POST(req: Response) {
         const type = file.type
         let extension = ""
         if (type.includes("/")) {
-            extension = "." + type.split("/")[1]; // ex: "image/png" -> ".png"
+            extension = "." + type.split("/")[1]; 
         }
 
         const iDfile = crypto.randomUUID()
