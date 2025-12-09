@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+c30ec7a5-f4c8-4977-942b-ec3f9aaa816b.vnd.debian.binary-package
+
 # dependencies
 /node_modules
 /.pnp
