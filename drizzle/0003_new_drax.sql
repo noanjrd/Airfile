@@ -1,1 +1,0 @@
-ALTER TABLE `files` RENAME COLUMN "created_at" TO "createdAt";

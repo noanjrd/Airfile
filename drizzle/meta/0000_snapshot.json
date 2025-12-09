@@ -1,11 +1,11 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "1828941d-967f-48ee-ae11-066a42efa3dd",
+  "id": "ffb570de-ab0d-412f-b0e0-6c0b76e9e75b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "files": {
-      "name": "files",
+    "content": {
+      "name": "content",
       "columns": {
         "id": {
           "name": "id",
@@ -18,12 +18,26 @@
           "name": "filename",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "filepath": {
           "name": "filepath",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "text": {
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -45,11 +59,11 @@
           "notNull": true,
           "autoincrement": true
         },
-        "filepath": {
-          "name": "filepath",
-          "type": "text",
+        "fileid": {
+          "name": "fileid",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "link": {
@@ -58,10 +72,38 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "pages_fileid_content_id_fk": {
+          "name": "pages_fileid_content_id_fk",
+          "tableFrom": "pages",
+          "tableTo": "content",
+          "columnsFrom": [
+            "fileid"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}

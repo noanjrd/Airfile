@@ -1,17 +1,15 @@
 "use client"
 
-
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
-import { useEffect } from "react";
-// import { Blob } from "buffer";
+import { base64ToBlob } from '../../../utils/base64ToBlob'
 
-//JE DOIS FAIRE TT LES TRY ET VERIFICATIONS
 
 export default function FilePage() {
     const params = useParams();
     const id = params.id as String;
     const [image, setImage] = useState<File | null>(null)
+    const [textoutput, setTextoutput] = useState("")
 
     const getFile = async () => {
         try {
@@ -20,33 +18,24 @@ export default function FilePage() {
                 headers: { "Content-Type": "application/json", },
                 body: JSON.stringify({ id: id })
             })
-            const blob = await response.blob()
-            const headercontent = response.headers.get('Content-Disposition')
-            if (!headercontent)
-            {
-                console.log("File not found")
-                return ({error : "File not found"})
+            const data = await response.json()
+            if (data.type == "text") {
+                setTextoutput(data.text)
             }
-            const filename = headercontent?.split('"')[1]
-            console.log(filename)
-
-            if (filename) {
-                const file = new File([blob], filename, {
+            else if (data.type == "file") {
+                const blob = base64ToBlob(data.fileData)
+                const file = new File([blob], data.filename, {
                     type: blob.type || "application/octet-stream"
                 })
                 setImage(file)
-
+            }
+            else {
+                console.log("Type not found")
             }
         }
-        catch (err:any)
-        {
-            console.error({error : err.message})
+        catch (err: any) {
+            console.error({ error: err.message })
         }
-
-        // const url = window.URL.createObjectURL(blob);
-        // window.open(url, '_blank');
-        // setImage()
-        // console.log(data)
     }
     return (
         <>
@@ -55,6 +44,11 @@ export default function FilePage() {
                 {image && (
                     <div>
                         <img src={URL.createObjectURL(image)} className="w-full h-full" />
+                    </div>
+                )}
+                {textoutput && (
+                    <div>
+                        <p className="text-black">Voici ton message : {textoutput}</p>
                     </div>
                 )
 
