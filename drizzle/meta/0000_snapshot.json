@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "ffb570de-ab0d-412f-b0e0-6c0b76e9e75b",
+  "id": "089dd617-f3cd-4862-96ac-6b949a25deb9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "content": {
@@ -14,15 +14,15 @@
           "notNull": true,
           "autoincrement": true
         },
-        "filename": {
-          "name": "filename",
+        "filenames": {
+          "name": "filenames",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "filepath": {
-          "name": "filepath",
+        "filepaths": {
+          "name": "filepaths",
           "type": "text",
           "primaryKey": false,
           "notNull": false,

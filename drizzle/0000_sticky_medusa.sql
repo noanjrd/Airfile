@@ -1,7 +1,7 @@
 CREATE TABLE `content` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`filename` text,
-	`filepath` text,
+	`filenames` text,
+	`filepaths` text,
 	`text` text,
 	`createdAt` integer NOT NULL
 );

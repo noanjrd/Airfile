@@ -11,18 +11,11 @@ import { copytoClipboard } from "../utils/copytoClipboard"
 
 export default function Home() {
 
-  const [fileinput, setFileinput] = useState<File | null>(null)
+  const [fileinput, setFileinput] = useState<File[]>([])
   const [textinput, setTextinput] = useState("")
   const [linktofile, setLinktofile] = useState("")
   const [filepathvalue, setFilepathvalue] = useState("")
   const [inputtype, setInputtype] = useState("file")
-
-
-  // const fetchData = async () => {
-  //   const res = await fetch("api/get")
-  //   const data = await res.json();
-  //   console.log(data)
-  // };
 
   useEffect(() => {
     console.log("link", linktofile);
@@ -34,11 +27,11 @@ export default function Home() {
   const changeFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     // let files = []
 
-    let fileinput = e.target.files?.[0]
+    const fileinput = Array.from(e.target.files || [])
     if (fileinput) {
       setFileinput(fileinput)
     }
-    console.log(fileinput?.name)
+    console.log(fileinput.map(f => f.name))
     // fetchData()
 
   }
@@ -58,7 +51,8 @@ export default function Home() {
       }
       const formData = new FormData();
       formData.append("type", "file")
-      formData.append("file", fileinput);
+      fileinput.forEach((file) =>
+        formData.append("files", file))
 
       const res = await fetch("/api/upload", {
         method: "POST",
@@ -66,21 +60,23 @@ export default function Home() {
       });
 
       const data = await res.json();
-      const link = data.link;
-      setLinktofile(link)
+      if (data.sucess == true) {
+        setLinktofile(data.link)
+      }
     }
-    else if (inputtype === "text")
-    {
-      const formData  = new FormData()
+    else if (inputtype === "text") {
+      const formData = new FormData()
       formData.append("textinput", textinput)
       formData.append("type", "text")
       const res = await fetch('api/upload', {
         method: "POST",
-        body:formData
+        body: formData
       })
 
       const data = await res.json()
-      setLinktofile(data.link)
+      if (data.sucess == true) {
+        setLinktofile(data.link)
+      }
 
     }
     return;
@@ -108,14 +104,14 @@ export default function Home() {
         }
         {inputtype === "file" && (
           <div>
-            <input type="file" className="border border-black text-black" onChange={changeFileInput} /> {/*Ici pas de () a la focntion donc c est uen reference a la focntion */}
+            <input type="file" multiple className="border border-black text-black" onChange={changeFileInput} /> {/*Ici pas de () a la focntion donc c est uen reference a la focntion */}
           </div>
         )
         }
 
 
         <button className="border bg-black rounded w-40 h-20 text-white text-lg" onClick={PushContent}>Upload</button> {/* Ici pareil */}
-        <p className="text-black text-lg">{fileinput?.name}</p>
+        <p className="text-black text-lg">{fileinput.map(f => f.name)}</p>
         {linktofile && (
           <div><p className="text-black text-lg"><br />Link to send : https://site.com/f/{linktofile}</p>
             <QRCodeComponent text={"https://site.com/f/" + linktofile} />

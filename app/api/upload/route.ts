@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { files, pages } from "@/db/schema";
+import { content, pages } from "@/db/schema";
 import { writeFile, mkdir } from "fs/promises";
 import { existsSync } from "fs";
 
@@ -20,9 +20,9 @@ export async function POST(req: Response) {
         const typedata = data.get("type") as string
         if (typedata === "text") {
             const textinput = data.get("textinput") as string
-            const [inserteddata] = await db.insert(files).values({
+            const [inserteddata] = await db.insert(content).values({
                 text : textinput
-            }).returning({ id: files.id })
+            }).returning({ id: content.id })
             const pagelink = generateRandomString(5)
             await db.insert(pages).values({
                 fileid : inserteddata.id,
@@ -32,28 +32,41 @@ export async function POST(req: Response) {
             return Response.json({ sucess: true, link: pagelink})
         }
         if (typedata === "file") {
-            const file = data.get("file") as File;
-            if (!file)
+            let filesdata = data.getAll("files")
+            //  data.get("file") as File;
+            const filenamestemp = []
+            const filepathstemp = []
+            if (!filesdata)
                 console.log("Error in file")
-            const arrayBuffer = await file.arrayBuffer()
-            const buffer = Buffer.from(arrayBuffer);
-            if (!existsSync("./uploads")) {
-                await mkdir("./uploads");
-            }
-            const type = file.type
-            let extension = ""
-            if (type.includes("/")) {
-                extension = "." + type.split("/")[1];
+            for (const file of filesdata)
+            {
+                if (file instanceof File)
+                {
+                    const arrayBuffer = await file.arrayBuffer()
+                    const buffer = Buffer.from(arrayBuffer)
+                    if (!existsSync("./uploads")){
+                        await mkdir("./uploads")
+                    }
+                    const  type = file.type
+                    let extension = ""
+                    if (type.includes("/")) {
+                        extension = "." + type.split("/")[1]
+                    }
+                    const iDfile = crypto.randomUUID()
+                    await writeFile("./uploads/" + iDfile + extension, buffer)
+
+                    filepathstemp.push(iDfile + extension)
+                    filenamestemp.push(file.name)
+                }
+
             }
 
-            const iDfile = crypto.randomUUID()
-            await writeFile("./uploads/" + iDfile + extension, buffer);
-            const [insertedFile] = await db.insert(files).values(
+            const [insertedFile] = await db.insert(content).values(
                 {
-                    filename: file.name,
-                    filepath: (iDfile + extension),
+                    filenames: filenamestemp,
+                    filepaths: filepathstemp,
                 }
-            ).returning({ id: files.id })
+            ).returning({ id: content.id })
             const pagelink = generateRandomString(5)
             await db.insert(pages).values(
                 {
