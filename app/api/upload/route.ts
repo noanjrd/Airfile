@@ -14,7 +14,7 @@ function generateRandomString(length: number) {
     return result
 }
 
-export async function POST(req: Response) {
+export async function POST(req: Request) {
     try {
         const data = await req.formData();
         const typedata = data.get("type") as string
