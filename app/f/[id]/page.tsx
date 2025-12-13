@@ -60,34 +60,38 @@ export default function FilePage() {
     return (
         <>
             <div className="relative w-full min-h-screen  flex flex-col items-center">
-                <p className="text-black text-6xl mt-10 text-center">Here are your files!</p>
+                <p className="text-black xl:text-5xl text-3xl mt-10 sm:mt-5 lg:mt-10 text-center font-medium">{typeinput == "file" ? "Here are your files!" : "Here is your text!"}</p>
                 {filesoutput.length > 0 && (
-                    <div>
+                    <div className="mt-10 sm:mt-5 lg:mt-10">
                         {/* // <div className="mt-20 grid grid-cols-2 grid-rows-2 w-100 h-100 gap-3 border p-3 border-[#3E8BFF]/90 rounded-2xl bg-[#3E8BFF]/10"> */}
                         <PreviewFile files={filesoutput} />
                         </div>
                 )}
                 {textoutput && (
-                    <div className="relative w-200 h-50 border-2 border-gray-500 bg-gray-50 rounded-xl mt-20 p-2">
-                        <p className="text-black">{textoutput}</p>
+                    <div className="relative mt-13 xl:mt-20  w-70 sm:w-100 h-30  lg:w-150 lg:h-50 border-2 border-gray-500 bg-gray-50 rounded-xl  p-2">
+                        <p className="text-black text-sm xl:text-base overflow-hidden text-ellipsis h-25 lg:h-45">{textoutput}</p>
                         {/* <button className="w-18 h-7 text-sm bg-black text-white rounded-4xl absolute bottom-1 right-1">Copy</button> */}
                     </div>
                 )
 
                 }
                 {typeinput === "file" && (
-                    <div>
-                        <button className="w-40 h-15 rounded-full bg-[#277DFF] text-lg text-white mt-10" onClick={getFile} >Download all</button>
+                    <div className="mt-15 sm:mt-10 lg:mt-10">
+                        <button className="w-27 h-9 lg:w-35 lg:h-10 rounded-full bg-black text-sm lg:text-base text-white" onClick={getFile} >Download all</button>
                     </div>
                 )
                 }
                 {typeinput === "text" && (
-                    <div>
-                        <button className="w-40 h-15 rounded-full bg-[#277DFF] text-lg text-white mt-10" onClick={() => copytoClipboard(textoutput)} >Copy text</button>
+                    <div className="mt-5 sm:mt-2 lg:mt-5">
+                        <button className=" w-27 h-1 sm:w-25 sm:h-10 lg:w-35 lg:h-13 rounded-full bg-black text-sm lg:text-lg text-white" onClick={() => copytoClipboard(textoutput)} >Copy text</button>
                     </div>
                 )
                 }
-                <p className="text-black bottom-2 absolute">The files uploaded on this platform are not verified.</p>
+                <div className="flex flex-row gap-1 mt-1">
+                    <p className="text-black lg:text-sm text-xs">Forward</p>
+                   <img src="/forwardicon.png" className="lg:w-[13px] lg:h-[10px] w-[10px] h-[8px] mt-1" /> 
+                </div>
+                <p className="text-black bottom-2 absolute text-xs lg:text-sm">The files uploaded on this platform are not verified.</p>
             </div>
 
         </>

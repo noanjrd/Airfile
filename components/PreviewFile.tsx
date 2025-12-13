@@ -32,10 +32,10 @@ export function PreviewFile({ files }: PreviewFileProps) {
             }
             else {
                 gridItems.push(
-                    <div key={i} className="bg-white/50 w-full gap-4 h-full border rounded-lg flex flex-col items-center justify-center">
+                    <div key={i} className="bg-gray-200 w-full gap-4 h-full border rounded-lg flex flex-col items-center justify-center">
                         <img src="/fileicon.png"
-                            className="w-7 h-9" />
-                        <p className="text-black">{file.name}</p>
+                            className="w-4 h-5 lg:w-7 lg:h-9" />
+                        <p className="text-black text-center truncate w-9/12 text-xs lg:text-base">{file.name}</p>
 
                     </div>
                 )
@@ -44,12 +44,12 @@ export function PreviewFile({ files }: PreviewFileProps) {
         i++;
     }
     return (
-        <div className="relative mt-20 grid grid-cols-2 grid-rows-2 w-100 h-100 gap-3 border p-3 border-[#3E8BFF]/90 rounded-2xl bg-[#3E8BFF]/10">
+        <div className="relative grid grid-cols-2 grid-rows-2 w-60 xl:w-90 xl:h-90 h-60 gap-3 border p-3 border-gray-700 rounded-2xl bg-gray-100">
             {gridItems}
             {
                 files.length > 4 && (
 
-                    <div className="absolute left-37 -bottom-4 bg-[#277DFF] w-25 h-10 rounded-4xl flex items-center justify-center"><p className="text-center">+{files.length - 4} more</p></div>
+                    <div className="absolute  left-23 xl:left-37 -bottom-3  xl:-bottom-4 bg-[#277DFF] w-15 h-6 rounded-4xl flex items-center justify-center"><p className="text-center text-xs">+{files.length - 4} more</p></div>
                 )
             }
             </div>
