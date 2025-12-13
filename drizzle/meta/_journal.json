@@ -8,6 +8,13 @@
       "when": 1765549422701,
       "tag": "0000_sticky_medusa",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1765583779933,
+      "tag": "0001_good_star_brand",
+      "breakpoints": true
     }
   ]
 }

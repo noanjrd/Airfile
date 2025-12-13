@@ -7,7 +7,7 @@ import { copytoClipboard } from "@/utils/copytoClipboard";
 import { PreviewFile } from "@/components/PreviewFile";
 import { getMimeType } from "@/utils/getMimeType";
 
-
+// faire une popup notif qui apparait quand le lien est copie ou que le telechargement demarre
 export default function FilePage() {
     const params = useParams();
     const [typeinput, setTypeinput] = useState("")
@@ -65,11 +65,7 @@ export default function FilePage() {
                     <div>
                         {/* // <div className="mt-20 grid grid-cols-2 grid-rows-2 w-100 h-100 gap-3 border p-3 border-[#3E8BFF]/90 rounded-2xl bg-[#3E8BFF]/10"> */}
                         <PreviewFile files={filesoutput} />
-                        {/* <img src={URL.createObjectURL(filesoutput[0])} className="w-full h-full object-cover rounded-lg" /> */}
-                        {/* <img src={URL.createObjectURL(filesoutput[1])} className="w-full h-full object-cover rounded-lg" /> */}
-                        {/* <img src={URL.createObjectURL(image)} className="w-full h-full object-cover rounded-lg" /> */}
-                        {/* <img src={URL.createObjectURL(image)} className="w-full h-full object-cover rounded-lg" /> */}
-                    // </div>
+                        </div>
                 )}
                 {textoutput && (
                     <div className="relative w-200 h-50 border-2 border-gray-500 bg-gray-50 rounded-xl mt-20 p-2">

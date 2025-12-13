@@ -5,7 +5,7 @@ export const pages = sqliteTable("pages", {
   fileid : integer("fileid").references(() => content.id),
   link: text("link").notNull(),
   type: text("type", {enum: ["file", "text"]}),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull().$defaultFn(() => new Date())
+  createdAt: integer("createdAt", { mode: "timestamp" }).notNull().$defaultFn(() => new Date())
 });
 
 export const content = sqliteTable("content", {

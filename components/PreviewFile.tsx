@@ -44,8 +44,14 @@ export function PreviewFile({ files }: PreviewFileProps) {
         i++;
     }
     return (
-        <div className="mt-20 grid grid-cols-2 grid-rows-2 w-100 h-100 gap-3 border p-3 border-[#3E8BFF]/90 rounded-2xl bg-[#3E8BFF]/10">
+        <div className="relative mt-20 grid grid-cols-2 grid-rows-2 w-100 h-100 gap-3 border p-3 border-[#3E8BFF]/90 rounded-2xl bg-[#3E8BFF]/10">
             {gridItems}
-        </div>
+            {
+                files.length > 4 && (
+
+                    <div className="absolute left-37 -bottom-4 bg-[#277DFF] w-25 h-10 rounded-4xl flex items-center justify-center"><p className="text-center">+{files.length - 4} more</p></div>
+                )
+            }
+            </div>
     )
 }

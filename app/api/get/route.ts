@@ -4,8 +4,40 @@ import { content } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { readFile } from "fs/promises";
 import path from "path"
+import { lt } from "drizzle-orm";
+import { unlink } from "fs/promises";
+
+async function deleteAuto()
+{
+  const onehour = 60 * 60 * 1000 // changer si je veux plus de 1 heure
+  const now = Date.now()
+  const limit = new Date(now - onehour)
+  // await db.delete(pages).where(lt(pages.createdAt, limit)) //lt = less than
+  const allfiles = await db.select().from(content).where(lt(content.createdAt, limit)) //lt = less than
+  for (const el of allfiles)
+  {
+    if (el.filepaths)
+    {
+      for (const filepath of el.filepaths)
+      {
+        const fullPath = path.join(process.cwd(), 'uploads', filepath)
+        try {
+          await unlink(fullPath)
+        } catch (err){
+          console.error(err)
+        }
+
+      }
+    }
+  }
+  await db.delete(pages).where(lt(pages.createdAt, limit))
+  await db.delete(content).where(lt(content.createdAt, limit))
+}
+
 
 export async function POST(req: Request) {
+
+  await deleteAuto()
   try {
     const request = await req.json()
     const pagelink = request.id
@@ -75,6 +107,8 @@ export async function POST(req: Request) {
 
   } catch (err: any) {
     // console.error(err);
+
     return Response.json({ success: false, error: err.message });
   }
+
 }

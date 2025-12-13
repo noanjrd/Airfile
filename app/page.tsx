@@ -113,8 +113,8 @@ export default function Home() {
         <button className="border bg-black rounded w-40 h-20 text-white text-lg" onClick={PushContent}>Upload</button> {/* Ici pareil */}
         <p className="text-black text-lg">{fileinput.map(f => f.name)}</p>
         {linktofile && (
-          <div><p className="text-black text-lg"><br />Link to send : https://site.com/f/{linktofile}</p>
-            <QRCodeComponent text={"https://site.com/f/" + linktofile} />
+          <div><p className="text-black text-lg"><br />Link to send : http://localhost:3000/f/{linktofile}</p>
+            <QRCodeComponent text={"http://localhost:3000/f/" + linktofile} />
             <button className="text-white bg-black rounded-lg w-30 h-20" onClick={() => copytoClipboard("http://localhost:3000/f/" + linktofile)}>Copier</button> {/* Ici on fait une focntion flechee pour que elle soit execute au click , elle reagit au changememtnd e la varable linktofile*/}
           </div>
 
