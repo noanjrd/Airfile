@@ -1,7 +1,5 @@
 "use client"
 
-import fileicon from "@/public/fileicon.png"
-
 interface PreviewFileProps {
     files: File[];
 }
@@ -49,7 +47,7 @@ export function PreviewFile({ files }: PreviewFileProps) {
             {
                 files.length > 4 && (
 
-                    <div className="absolute  left-23 xl:left-37 -bottom-3  xl:-bottom-4 bg-[#277DFF] w-15 h-6 rounded-4xl flex items-center justify-center"><p className="text-center text-xs">+{files.length - 4} more</p></div>
+                    <div className="absolute  left-22 xl:left-37 -bottom-4  bg-[#277DFF] w-15 h-6 rounded-4xl flex items-center justify-center"><p className="text-center text-xs">+{files.length - 4} more</p></div>
                 )
             }
             </div>
