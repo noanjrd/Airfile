@@ -44,7 +44,7 @@ export default function Home() {
 
 
   async function PushContent() {
-    if (inputtype === "file") {
+    if (inputtype === "file" && fileinput.length >= 1) {
       if (!fileinput) {
         console.log("No file selected");
         return;
@@ -104,7 +104,7 @@ export default function Home() {
         }
         {inputtype === "file" && (
           <div>
-            <input type="file" multiple className="border border-black text-black" onChange={changeFileInput} /> {/*Ici pas de () a la focntion donc c est uen reference a la focntion */}
+            <input type="file" required multiple className="border border-black text-black" onChange={changeFileInput} /> {/*Ici pas de () a la focntion donc c est uen reference a la focntion */}
           </div>
         )
         }

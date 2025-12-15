@@ -7,6 +7,8 @@ import { copytoClipboard } from "@/utils/copytoClipboard";
 import { PreviewFile } from "@/components/PreviewFile";
 import { getMimeType } from "@/utils/getMimeType";
 import { PopupToShare } from "@/components/PopupToShare";
+import { downloadFiles } from "@/utils/downloadFiles";
+import { CopiedAlert } from "@/components/TextAlert";
 
 // faire une popup notif qui apparait quand le lien est copie ou que le telechargement demarre
 export default function FilePage() {
@@ -17,6 +19,7 @@ export default function FilePage() {
     const [filesoutput, setFilesoutput] = useState<File[]>([])
     const [textoutput, setTextoutput] = useState("")
     const [popupstate, setPopupstate] = useState(false)
+    const [alertCopied, setAlertCopied] = useState(false)
 
     useEffect(() => {
         getFile();
@@ -64,7 +67,7 @@ export default function FilePage() {
             <div className="relative w-full min-h-screen  flex flex-col items-center">
 
                 <PopupToShare isOpen={popupstate} onClose={() => setPopupstate(false)} shareUrl={"http://localhost:3000/f/" + id} />
-
+                <CopiedAlert text="Text copied" isDisplayed={alertCopied} onClose={() => setAlertCopied(false)}/>
 
                 <p className="text-black xl:text-5xl text-3xl mt-10 sm:mt-5 lg:mt-10 text-center font-medium">{typeinput == "file" ? "Here are your files!" : "Here is your text!"}</p>
                 {filesoutput.length > 0 && (
@@ -83,13 +86,13 @@ export default function FilePage() {
                 }
                 {typeinput === "file" && (
                     <div className="mt-15 sm:mt-10 lg:mt-10">
-                        <button className="cursor-pointer w-27 h-9 lg:w-35 lg:h-10 rounded-full bg-black hover:opacity-80  text-sm lg:text-base text-white" onClick={getFile} >Download all</button>
+                        <button className="cursor-pointer w-27 h-9 lg:w-35 lg:h-10 rounded-full bg-black hover:opacity-80  text-sm lg:text-base text-white" onClick={() => downloadFiles(filesoutput)} >Download all</button>
                     </div>
                 )
                 }
                 {typeinput === "text" && (
                     <div className="mt-5 sm:mt-2 lg:mt-5">
-                        <button className="cursor-pointer w-27 h-1 sm:w-25 sm:h-10 lg:w-35 lg:h-13 rounded-full bg-black hover:bg-black/80 text-sm lg:text-lg text-white" onClick={() => copytoClipboard(textoutput)} >Copy text</button>
+                        <button className="cursor-pointer w-27 h-10 sm:w-25 sm:h-10 lg:w-35 lg:h-13 rounded-full bg-black hover:bg-black/80 text-sm lg:text-lg text-white" onClick={() => {copytoClipboard(textoutput); setAlertCopied(true) }} >Copy text</button>
                     </div>
                 )
                 }
