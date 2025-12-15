@@ -7,7 +7,12 @@ interface PreviewFileProps {
 export function PreviewFile({ files }: PreviewFileProps) {
     let i = 0
     const gridItems = []
-    while (i < 4) {
+    let reach = 4
+    if (files.length <=3)
+    {
+        reach = 2 
+    }
+    while (i < reach) {
         const file = files[i]
         if (file) {
             console.log(`File ${i}:`, {
@@ -19,7 +24,7 @@ export function PreviewFile({ files }: PreviewFileProps) {
             if (file.type.startsWith('image/')) {
                 gridItems.push(
                     <img key={i} src={URL.createObjectURL(file)}
-                        className="w-full h-full object-cover rounded-lg"
+                        className={`w-full object-cover rounded-lg ${reach === 2 ? 'h-25 xl:h-40' : 'h-25 xl:h-40'}`}
                         onLoad={(e) => {
                             // Nettoyer l'URL après chargement
                             setTimeout(() => {
@@ -42,10 +47,10 @@ export function PreviewFile({ files }: PreviewFileProps) {
         i++;
     }
     return (
-        <div className="relative grid grid-cols-2 grid-rows-2 w-60 xl:w-90 xl:h-90 h-60 gap-3 border p-3 border-gray-700 rounded-2xl bg-gray-100">
+        <div className={`relative grid ${reach === 2  ? ' grid-cols-2 grid-rows-1 w-60 xl:w-90 ' : ' grid-cols-2 grid-rows-2 w-60 xl:w-90 '}}   gap-3 border p-3 border-gray-700 rounded-2xl bg-gray-100`}>
             {gridItems}
             {
-                files.length > 4 && (
+                files.length > reach && (
 
                     <div className="absolute  left-22 xl:left-37 -bottom-4  bg-[#277DFF] w-15 h-6 rounded-4xl flex items-center justify-center"><p className="text-center text-xs">+{files.length - 4} more</p></div>
                 )

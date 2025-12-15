@@ -3,15 +3,17 @@
 import QRCodeComponent from "./QRCodeComponent"
 import { copytoClipboard } from "@/utils/copytoClipboard";
 import { motion, AnimatePresence } from "framer-motion";
+import { CopiedAlert } from "./CopiedAlert";
 
 
 interface PopupToShareProps {
     isOpen: boolean;
-    onClose: () => void;
-    shareUrl: string;
+    onClose: () => void
+    shareUrl: string
+    triggerCopy : () => void 
 }
 
-export function PopupToShare({ isOpen, onClose, shareUrl }: PopupToShareProps) {
+export function PopupToShare({ isOpen, onClose, shareUrl, triggerCopy }: PopupToShareProps) {
     return (
         <AnimatePresence>
             {isOpen && (
@@ -21,7 +23,7 @@ export function PopupToShare({ isOpen, onClose, shareUrl }: PopupToShareProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-[2px] bg-black/30"
+                    className="fixed inset-0 z-45 flex items-center justify-center backdrop-blur-[2px] bg-black/30"
                 >
                     <motion.div
                         key="box"
@@ -41,7 +43,7 @@ export function PopupToShare({ isOpen, onClose, shareUrl }: PopupToShareProps) {
                         <img
                             src="/linkicon.png"
                             className="cursor-pointer mt-3 w-6 h-6 hover:opacity-50"
-                            onClick={() => copytoClipboard(shareUrl)}
+                            onClick={() => {copytoClipboard(shareUrl); triggerCopy()}}
                         />
 
                         <p
