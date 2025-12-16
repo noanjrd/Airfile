@@ -1,9 +1,9 @@
-all: cd src && docker-compose up -d --build 
+all:
+	cd src && docker-compose up -d --build 
 
 build:
 	cd src && docker-compose build
 
-#on relie le port du pc a la machine
 start:
 	cd src && docker-compose up
 
