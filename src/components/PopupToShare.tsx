@@ -36,7 +36,8 @@ export function PopupToShare({ isOpen, onClose, shareUrl, triggerCopy }: PopupTo
                         }}
                         className="w-60 h-80 bg-white rounded-2xl shadow-2xl flex flex-col mt-5 items-center"
                     >
-                        <div className="mt-10 border-4 rounded-xl w-40 h-40 flex justify-center items-center border-blue-600">
+                        <p className="mt-10 text-center text-black text-xs">{shareUrl}</p>
+                        <div className="mt-1 border-4 rounded-xl w-40 h-40 flex justify-center items-center border-blue-600">
                             <QRCodeComponent text={shareUrl} width={130} height={130} />
                         </div>
 
@@ -47,7 +48,7 @@ export function PopupToShare({ isOpen, onClose, shareUrl, triggerCopy }: PopupTo
                         />
 
                         <p
-                            className="mt-7 text-black text-lg hover:opacity-50 cursor-pointer"
+                            className="mt-5 text-black text-lg hover:opacity-50 cursor-pointer"
                             onClick={onClose}
                         >
                             Close

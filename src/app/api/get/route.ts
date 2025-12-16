@@ -9,9 +9,9 @@ import { unlink } from "fs/promises";
 
 async function deleteAuto()
 {
-  const onehour = 60 * 60 * 1000 // changer si je veux plus de 1 heure
+  const period = Number(process.env.NEXT_PUBLIC_EXPIRATION_FILES_TIME) // changer si je veux plus de 1 heure
   const now = Date.now()
-  const limit = new Date(now - onehour)
+  const limit = new Date(now - period)
   // await db.delete(pages).where(lt(pages.createdAt, limit)) //lt = less than
   const allfiles = await db.select().from(content).where(lt(content.createdAt, limit)) //lt = less than
   for (const el of allfiles)
