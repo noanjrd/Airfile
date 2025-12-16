@@ -1,19 +1,16 @@
-all: build run
+all: cd src && docker-compose up -d --build 
 
 build:
-	docker build -t airfile .
+	cd src && docker-compose build
 
 #on relie le port du pc a la machine
-run:
-	docker run -p 3000:3000 --name airfile_container airfile
+start:
+	cd src && docker-compose up
 
 down:
-	docker stop airfile_container
+	cd src && docker-compose down
 
 fclean:
-	docker rm airfile_container
-	docker rm -v $(docker ps -a -q)
-	docker volume prune -f
+	cd src && docker-compose down -v
 
-
-.PHONY: all build run down fclean
+.PHONY: all build start down fclean

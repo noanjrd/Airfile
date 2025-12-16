@@ -115,11 +115,11 @@ export default function Home() {
 
     return (
         <>
-            <div className="flex flex-col w-full h-full items-center justify-center bg-white border font-sans">
+            <div className="flex flex-col w-full h-full items-center justify-center bg-white  font-sans">
                 <UploadedAlert isDisplayed={uploaded} onClose={() => setUploaded(false)} />
                 <HeavyFileAlert isDisplayed={HeavyAlert} onClose={() => setHeavyAlert(false)} />
                 <p className="mt-8 text-black text-xl lg:text-3xl text-center">Upload whatever you want here!</p>
-                <div className="mt-13  w-55 lg:w-150 flex flex-row ">
+                <div className="mt-13  w-60 lg:w-150 flex flex-row ">
                     <div onClick={changeTypeInput}
                         className={`flex items-center justify-center bg-[#F4F4F4] ${inputtype === "text" ? "border-[#b4b4b4] z-3" : "border-[#e2e2e2] z-1"} border-[#6d6d6d] -mb-0.5  border-t-2 border-l-2 border-r-2  rounded-t-xl w-13 h-6 lg:h-8 lg:w-18 `}>
                         <img src="/texticon.png" className="w-3 h-3 lg:w-4 lg:h-4" />
@@ -132,15 +132,16 @@ export default function Home() {
                 {inputtype === "text" && (
                     <div className=" flex w-full justify-center z-2">
                         <textarea placeholder="Type your text here"
-                            className="  focus:outline-none  w-55 h-30 lg:w-150 lg:h-50 border-2 text-xs lg:text-base rounded-b-xl rounded-tr-xl border-[#b4b4b4] bg-[#F4F4F4] text-black px-2 py-2" onChange={changeTextinput}></textarea>
+                            className="  focus:outline-none  w-60 h-30 lg:w-150 lg:h-50 border-2 text-xs lg:text-base rounded-b-xl rounded-tr-xl border-[#b4b4b4] bg-[#F4F4F4] text-black px-2 py-2" onChange={changeTextinput}></textarea>
                     </div>
                 )}
                 {inputtype === "file" && (
                     <div className="flex w-full h-full justify-center z-2 ">
-                        <div className="relative w-55 h-30 lg:w-150 lg:h-50 rounded-b-xl rounded-tr-xl bg-[#F4F4F4] border-2 border-[#b4b4b4]  ">
-                            <input type="file" required multiple className="opacity-0 absolute w-full h-full   text-xs rounded-b-xl  text-black " onChange={changeFileInput} /> {/*Ici pas de () a la focntion donc c est uen reference a la focntion */}
-                            <p className="mt-10 lg:mt-18 text-black text-center text-xs lg:text-base">Click the button below to upload</p>
+                        <div className="relative flex flex-col items-center w-60 h-30  lg:w-150 lg:h-50 rounded-b-xl rounded-tr-xl bg-[#F4F4F4] border-2 border-[#b4b4b4]  ">
+                            <input type="file" required multiple className="z-10 opacity-0 absolute w-full h-full   text-xs rounded-b-xl  text-black cursor-cell" onChange={changeFileInput} /> {/*Ici pas de () a la focntion donc c est uen reference a la focntion */}
+                            <p className="mt-7  lg:mt-15 text-black text-center text-xs lg:text-base">Click the button below to upload</p>
                             <p className="mt-1 text-[#525252] text-center text-[10px] lg:">Max. File Size: 100MB</p>
+                            <button className="mt-3 w-13 h-5 lg:h-7 lg:w-15  bg-[#277DFF] rounded-full text-xs lg:text-sm cursor-pointer hover:bg-[#277DFF]/80 " >Select</button>
 
                         </div>
                     </div>
@@ -153,9 +154,9 @@ export default function Home() {
                 }
                 <button className="mt-8 border bg-black rounded-full cursor-pointer w-28 lg:w-40 h-11 lg:h-15 text-white text-base lg:text-lg hover:bg-black/80" onClick={PushContent}>Upload</button> {/* Ici pareil */}
                 {linktofile && (
-                    <div><p className="text-black text-lg"><br />Link to send : http://localhost:3000/f/{linktofile}</p>
-                        <QRCodeComponent text={"http://localhost:3000/f/" + linktofile} />
-                        <button className="text-white bg-black rounded-lg w-30 h-20" onClick={() => copytoClipboard("http://localhost:3000/f/" + linktofile)}>Copier</button> {/* Ici on fait une focntion flechee pour que elle soit execute au click , elle reagit au changememtnd e la varable linktofile*/}
+                    <div><p className="text-black text-lg"><br />Link to send : {process.env.NEXT_PUBLIC_URL_SITE}/f/{linktofile}</p>
+                        <QRCodeComponent text={process.env.NEXT_PUBLIC_URL_SITE + "/f/" + linktofile} />
+                        <button className="text-white bg-black rounded-lg w-30 h-20" onClick={() => copytoClipboard(process.env.NEXT_PUBLIC_URL_SITE + "/f/" + linktofile)}>Copier</button> {/* Ici on fait une focntion flechee pour que elle soit execute au click , elle reagit au changememtnd e la varable linktofile*/}
                     </div>
 
                 )}

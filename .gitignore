@@ -1,12 +1,11 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 .vscode
 vscode
 uploads
-
+sqlite.db
+drizzle
 
 # dependencies
-/node_modules
+node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -18,8 +17,10 @@ uploads
 # testing
 /coverage
 
+data/
+
 # next.js
-/.next/
+.next
 /out/
 
 # production
@@ -35,8 +36,6 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
 
 # vercel
 .vercel

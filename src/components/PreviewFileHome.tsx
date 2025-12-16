@@ -21,7 +21,7 @@ export function PreviewFileHome({ files }: PreviewFileHomeProps) {
 
             }
             gridItems.push(
-                <div key={i} className=" w-50 lg:w-100 gap-2 h-6 lg:h-10 flex flex-row items-center justify-center">
+                <div key={i} className=" w-50 lg:w-100 gap-2 h-6 lg:h-8 flex flex-row items-center justify-center">
                     <img src="/fileicon.png"
                             className="w-3 h-4 lg:w-4 lg:h-5 ml-0.5 " />
 
@@ -33,7 +33,7 @@ export function PreviewFileHome({ files }: PreviewFileHomeProps) {
         i++;
     }
     return (
-        <div className={`mt-3 ml-5 relative grid  grid-rows-${reach} w-55 lg:w-150  `}>
+        <div className={`mt-2 ml-3 relative grid  grid-rows-${reach} w-55 lg:w-150  `}>
             <div>
             {gridItems}
             </div>

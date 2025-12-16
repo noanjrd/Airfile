@@ -35,7 +35,7 @@ export function PreviewFile({ files }: PreviewFileProps) {
             }
             else {
                 gridItems.push(
-                    <div key={i} className="bg-gray-200 w-full gap-4 h-full border rounded-lg flex flex-col items-center justify-center">
+                    <div key={i} className={`bg-gray-200 w-full gap-4 ${reach === 2 ? 'h-25 xl:h-40' : 'h-25 xl:h-40'} border rounded-lg flex flex-col items-center justify-center`}>
                         <img src="/fileicon.png"
                             className="w-4 h-5 lg:w-7 lg:h-9" />
                         <p className="text-black text-center truncate w-9/12 text-xs lg:text-base">{file.name}</p>
@@ -51,8 +51,7 @@ export function PreviewFile({ files }: PreviewFileProps) {
             {gridItems}
             {
                 files.length > reach && (
-
-                    <div className="absolute  left-22 xl:left-37 -bottom-4  bg-[#277DFF] w-15 h-6 rounded-4xl flex items-center justify-center"><p className="text-center text-xs">+{files.length - 4} more</p></div>
+                    <div className="absolute  left-22 xl:left-37 -bottom-4  bg-[#277DFF] w-15 h-6 rounded-4xl flex items-center justify-center"><p className="text-center text-xs">+{files.length - reach} more</p></div>
                 )
             }
             </div>

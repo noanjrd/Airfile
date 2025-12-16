@@ -66,7 +66,7 @@ export default function FilePage() {
         <>
             <div className="relative w-full min-h-screen  flex flex-col items-center">
 
-                <PopupToShare   triggerCopy={() => setAlertCopied(true)} isOpen={popupstate} onClose={() => setPopupstate(false)} shareUrl={"http://localhost:3000/f/" + id} />
+                <PopupToShare   triggerCopy={() => setAlertCopied(true)} isOpen={popupstate} onClose={() => setPopupstate(false)} shareUrl={`${process.env.NEXT_PUBLIC_URL_SITE || 'http://localhost:3000/'}` +"/f/" + id} />
                 <CopiedAlert text="Text copied" isDisplayed={alertCopied} onClose={() => setAlertCopied(false)}/>
 
                 <p className="text-black xl:text-5xl text-3xl mt-10 sm:mt-5 lg:mt-10 text-center font-medium">{typeinput == "file" ? "Here are your files!" : "Here is your text!"}</p>

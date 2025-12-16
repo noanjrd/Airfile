@@ -1,1 +1,0 @@
-ALTER TABLE `pages` RENAME COLUMN "created_at" TO "createdAt";

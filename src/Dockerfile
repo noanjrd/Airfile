@@ -30,20 +30,16 @@ COPY --from=builder /app/package.json /app/package-lock.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/drizzle ./drizzle
 COPY --from=builder /app/db ./db
 COPY --from=builder /app/drizzle.config.ts ./drizzle.config.ts
 
 
-RUN mkdir -p ./uploads
-
-#on creer un volume pour le dossier uploads et /app car la db est dedans
-VOLUME ["/app/uploads", "/app"]
+RUN mkdir -p ./uploads ./drizzle
 
 EXPOSE 3000
 
 ENV NODE_ENV=production
 
 # Lancer Next.js en mode production DANS LE CONTAINER
-CMD ["sh", "-c", "npx drizzle-kit migrate && npm start"]
 #il faut ensuite relier le 3000 du cotnainer a celui de la machine
+CMD ["sh", "-c", "if [ ! -f sqlite.db ]; then npx drizzle-kit generate && npx drizzle-kit migrate; fi && npm start"]
