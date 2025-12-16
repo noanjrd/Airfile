@@ -6,7 +6,6 @@ services:
     env_file:
       - .env.local
     volumes:
-      - ./uploads:/app/uploads
       - db-data:/app
 
       

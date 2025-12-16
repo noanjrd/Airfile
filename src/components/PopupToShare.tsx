@@ -15,14 +15,14 @@ interface PopupToShareProps {
 
 export function PopupToShare({ isOpen, onClose, shareUrl, triggerCopy }: PopupToShareProps) {
     return (
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
             {isOpen && (
                 <motion.div
                     key="overlay"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.15 }}
                     className="fixed inset-0 z-45 flex items-center justify-center backdrop-blur-[2px] bg-black/30"
                 >
                     <motion.div
@@ -31,7 +31,7 @@ export function PopupToShare({ isOpen, onClose, shareUrl, triggerCopy }: PopupTo
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.8, y: 20 }}
                         transition={{
-                            duration: 0.25,
+                            duration: 0.50,
                             ease: "easeOut"
                         }}
                         className="w-60 h-80 bg-white rounded-2xl shadow-2xl flex flex-col mt-5 items-center"

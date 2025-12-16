@@ -121,7 +121,7 @@ export default function Home() {
 
     return (
         <>
-            <div className="flex flex-col w-full h-full items-center  bg-white  font-sans">
+            <div className="flex flex-col w-full min-h-screen items-center    font-sans">
                 <UploadedAlert isDisplayed={uploadedAlert} onClose={() => setUploadedAlert(false)} />
                 <HeavyFileAlert isDisplayed={HeavyAlert} onClose={() => setHeavyAlert(false)} />
                 <CopiedAlert isDisplayed={CopiedAlertv} onClose={() => setCopiedAlertv(false)} />
@@ -131,23 +131,23 @@ export default function Home() {
                         <p className="mt-8 text-black text-xl lg:text-3xl text-center">Upload whatever you want here!</p>
                         <div className="mt-13  w-60 lg:w-150 flex flex-row ">
                             <div onClick={changeTypeInput}
-                                className={`flex items-center justify-center bg-[#F4F4F4] ${inputtype === "text" ? "border-[#b4b4b4] z-3" : "border-[#e2e2e2] z-1"} border-[#6d6d6d] -mb-0.5  border-t-2 border-l-2 border-r-2  rounded-t-xl w-13 h-6 lg:h-8 lg:w-18 `}>
+                                className={`flex items-center justify-center bg-[#F4F4F4]/50 ${inputtype === "text" ? "border-[#b4b4b4] z-3" : "border-[#e2e2e2] z-1"} border-[#6d6d6d] -mb-0.5  border-t-2 border-l-2 border-r-2  rounded-t-xl w-13 h-6 lg:h-8 lg:w-18 `}>
                                 <img src="/texticon.png" className="w-3 h-3 lg:w-4 lg:h-4" />
                             </div>
                             <div onClick={changeTypeInput}
-                                className={`flex items-center justify-center bg-[#F4F4F4] ${inputtype === "file" ? "border-[#b4b4b4] z-3" : "border-[#e2e2e2] z-1"} -mb-0.5  border-t-2 border-l-2 border-r-2  rounded-t-xl w-13 h-6 lg:h-8 lg:w-18`}>
+                                className={`flex items-center justify-center bg-[#F4F4F4]/50 ${inputtype === "file" ? "border-[#b4b4b4] z-3" : "border-[#e2e2e2] z-1"} -mb-0.5  border-t-2 border-l-2 border-r-2  rounded-t-xl w-13 h-6 lg:h-8 lg:w-18`}>
                                 <img src="/uploadicon.png" className="w-3.5 h-3.5 lg:w-4 lg:h-4" />
                             </div>
                         </div>
                         {inputtype === "text" && (
                             <div className=" flex w-full justify-center z-2">
                                 <textarea placeholder="Type your text here"
-                                    className="  focus:outline-none  w-60 h-30 lg:w-150 lg:h-50 border-2 text-xs lg:text-base rounded-b-xl rounded-tr-xl border-[#b4b4b4] bg-[#F4F4F4] text-black px-2 py-2" onChange={changeTextinput}></textarea>
+                                    className="  focus:outline-none  w-60 h-30 lg:w-150 lg:h-50 border-2 text-xs lg:text-base rounded-b-xl rounded-tr-xl border-[#b4b4b4] bg-[#F4F4F4]/50 text-black px-2 py-2" onChange={changeTextinput}></textarea>
                             </div>
                         )}
                         {inputtype === "file" && (
                             <div className="flex w-full h-full justify-center z-2 ">
-                                <div className="relative flex flex-col items-center w-60 h-30  lg:w-150 lg:h-50 rounded-b-xl rounded-tr-xl bg-[#F4F4F4] border-2 border-[#b4b4b4]  ">
+                                <div className="relative flex flex-col items-center w-60 h-30  lg:w-150 lg:h-50 rounded-b-xl rounded-tr-xl bg-[#F4F4F4]/50 border-2 border-[#b4b4b4]  ">
                                     <input type="file" required multiple className="z-10 opacity-0 absolute w-full h-full   text-xs rounded-b-xl  text-black cursor-cell" onChange={changeFileInput} /> {/*Ici pas de () a la focntion donc c est uen reference a la focntion */}
                                     <p className="mt-7  lg:mt-15 text-black text-center text-xs lg:text-base">Click the button below to upload</p>
                                     <p className="mt-1 text-[#525252] text-center text-[10px] lg:">Max. File Size: {process.env.NEXT_PUBLIC_MAX_SIZE_FILES}</p>
@@ -179,7 +179,7 @@ export default function Home() {
                 }
                 {uploaded === true && (
                     <div className="flex flex-col justify-center items-center mt-8 px-2 w-full h-full">
-                        <p className=" text-black text-2xl text-center   lg:text-3xl  ">Time to share the link to your content!</p>
+                        <p className=" text-black text-2xl text-center   lg:text-3xl max-w-sm mx-auto  ">Ready to share!</p>
                         <p className="mt-8 text-black text-xs"><br />{process.env.NEXT_PUBLIC_URL_SITE}/f/{linktofile}</p>
                         <div className="border-4 rounded-2xl     border-[#277DFF] w-[180px] h-[180px] flex justify-center items-center">
                             <QRCodeComponent text={process.env.NEXT_PUBLIC_URL_SITE + "/f/" + linktofile} width={140} height={140} />
@@ -188,6 +188,7 @@ export default function Home() {
                     </div>
 
                 )}
+                <p className="absolute bottom-3 text-gray-500 text-center text-sm">Files are shared securely. No account required.</p>
             </div>
         </>
     );
