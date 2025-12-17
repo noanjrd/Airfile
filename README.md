@@ -77,7 +77,7 @@ http://localhost:3000
 ## 📂 Project Structure
 
 ```
-airfile/
+Airfile/
 ├── src/
 ├── docker-compose.yml
 ├── Dockerfile
@@ -87,7 +87,6 @@ airfile/
 
 ## 📸 Preview
 
-*(You can add screenshots or GIFs here later)*
 
 ## 🧪 Development
 

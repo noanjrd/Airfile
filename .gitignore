@@ -3,6 +3,7 @@ vscode
 uploads
 sqlite.db
 drizzle
+env.local
 
 # dependencies
 node_modules
