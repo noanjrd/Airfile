@@ -42,4 +42,4 @@ ENV NODE_ENV=production
 
 # Lancer Next.js en mode production DANS LE CONTAINER
 #il faut ensuite relier le 3000 du cotnainer a celui de la machine
-CMD ["sh", "-c", "if [ ! -f sqlite.db ]; then npx drizzle-kit generate && npx drizzle-kit migrate; fi && npm start"]
+CMD ["sh", "-c", "npx drizzle-kit generate && npx drizzle-kit migrate && npm start"]

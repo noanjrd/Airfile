@@ -1,16 +1,16 @@
 all:
-	cd src && docker-compose up -d --build 
+	cd src && sudo docker compose up -d --build 
 
 build:
-	cd src && docker-compose build
+	cd src && sudo docker compose build
 
 start:
-	cd src && docker-compose up
+	cd src && sudo docker compose up -d
 
 down:
-	cd src && docker-compose down
+	cd src && sudo docker compose down
 
 fclean:
-	cd src && docker-compose down -v
+	cd src && sudo docker compose down -v
 
 .PHONY: all build start down fclean

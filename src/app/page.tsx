@@ -125,6 +125,7 @@ export default function Home() {
                 <UploadedAlert isDisplayed={uploadedAlert} onClose={() => setUploadedAlert(false)} />
                 <HeavyFileAlert isDisplayed={HeavyAlert} onClose={() => setHeavyAlert(false)} />
                 <CopiedAlert isDisplayed={CopiedAlertv} onClose={() => setCopiedAlertv(false)} />
+                <img src="/homeicon.png"  onClick={() => window.location.reload()} className="fixed left-4 w-4.5 h-5 lg:w-6 lg:h-6 top-3 cursor-pointer hover:opacity-70" />
 
                 {uploaded === false && (
                     <>
