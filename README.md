@@ -1,4 +1,4 @@
-# Airfile ✈️📁
+# Airfile
 
 Airfile is a simple and modern file-sharing application that allows users to upload, share, and access files easily through a clean web interface.
 
