@@ -58,7 +58,7 @@ Build and start the containers:
 
 ```bash
 make build
-make up
+make start
 ```
 
 Or manually:
@@ -87,6 +87,9 @@ Airfile/
 
 ## 📸 Preview
 
+![Home screenshot 2](preview/2.png)
+![Send page](preview/3.png)
+![Get page](preview/4.png)
 
 ## 🧪 Development
 
