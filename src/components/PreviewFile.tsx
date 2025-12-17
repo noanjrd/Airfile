@@ -26,7 +26,6 @@ export function PreviewFile({ files }: PreviewFileProps) {
                     <img key={i} src={URL.createObjectURL(file)}
                         className={`w-full object-cover rounded-lg ${reach === 2 ? 'h-25 xl:h-40' : 'h-25 xl:h-40'}`}
                         onLoad={(e) => {
-                            // Nettoyer l'URL après chargement
                             setTimeout(() => {
                                 URL.revokeObjectURL((e.target as HTMLImageElement).src);
                             }, 1000);
@@ -38,7 +37,7 @@ export function PreviewFile({ files }: PreviewFileProps) {
                     <div key={i} className={`bg-gray-200 w-full gap-4 ${reach === 2 ? 'h-25 xl:h-40' : 'h-25 xl:h-40'} border rounded-lg flex flex-col items-center justify-center`}>
                         <img src="/fileicon.png"
                             className="w-4 h-5 lg:w-7 lg:h-9" />
-                        <p className="text-black text-center truncate w-9/12 text-xs lg:text-base">{file.name}</p>
+                        <p className="text-black text-center truncate w-9/12 text-xs xl:text-base">{file.name}</p>
 
                     </div>
                 )
