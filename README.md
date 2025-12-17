@@ -22,6 +22,7 @@ Airfile is a simple and modern file-sharing application that allows users to upl
 
 Make sure you have the following installed:
 
+* Make
 * Docker
 * Docker Compose
 
