@@ -93,6 +93,7 @@ Airfile/
 To run the project in development mode without Docker:
 
 ```bash
+cd src
 npm install
 npm run dev
 ```
