@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { base64ToBlob } from '@/utils/base64ToBlob'
 import { copytoClipboard } from "@/utils/copytoClipboard";
 import { PreviewFile } from "@/components/PreviewFile";
@@ -12,12 +12,10 @@ import { CopiedAlert } from "@/components/CopiedAlert";
 import { CopiedAlertText } from "@/components/CopiedAlertText";
 import Link from "next/link";
 
-// faire une popup notif qui apparait quand le lien est copie ou que le telechargement demarre
 export default function FilePage() {
     const params = useParams();
     const [typeinput, setTypeinput] = useState("")
     const id = params.id as String;
-    const [image, setImage] = useState<File | null>(null)
     const [filesoutput, setFilesoutput] = useState<File[]>([])
     const [textoutput, setTextoutput] = useState("")
     const [popupstate, setPopupstate] = useState(false)
@@ -40,8 +38,6 @@ export default function FilePage() {
                 setTextoutput(data.text)
             }
             else if (data.type == "file") {
-
-                console.log("bo")
                 setTypeinput("file")
                 const tempfiles = []
                 for (const file of data.files) {
@@ -75,7 +71,7 @@ export default function FilePage() {
 
                 <PopupToShare triggerCopy={() => setAlertCopied(true)} isOpen={popupstate} onClose={() => setPopupstate(false)} shareUrl={`${process.env.NEXT_PUBLIC_URL_SITE || 'http://localhost:3000/'}` + "/f/" + id} />
                 <CopiedAlert isDisplayed={alertCopied} onClose={() => setAlertCopied(false)} />
-                    <CopiedAlertText isDisplayed={alertCopiedText} onClose={() => setAlertCopiedText(false)} />
+                <CopiedAlertText isDisplayed={alertCopiedText} onClose={() => setAlertCopiedText(false)} />
                 {typeinput.length > 1 && (
                     <>
                         <p className="text-black xl:text-5xl text-3xl mt-10 sm:mt-5 lg:mt-10 text-center font-medium">{typeinput == "file" ? "Here are your files!" : "Here is your text!"}</p>

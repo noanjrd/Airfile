@@ -1,8 +1,5 @@
 "use client";
 
-import { link } from "fs";
-import Image from "next/image";
-import { eventNames } from "process";
 import React, { useState, useEffect } from "react";
 import QRCodeComponent from "@/components/QRCodeComponent";
 import { copytoClipboard } from "../utils/copytoClipboard"
@@ -64,7 +61,7 @@ export default function Home() {
             }
             const oversizedFiles = fileinput.filter(file => file.size > MAX_FILE_SIZE)
             if (oversizedFiles.length > 0) {
-                console.log("Certains fichiers sont trop volumineux")
+                console.log("Some files are too heavy")
                 setHeavyAlert(true)
                 return
             }
@@ -125,11 +122,17 @@ export default function Home() {
                 <UploadedAlert isDisplayed={uploadedAlert} onClose={() => setUploadedAlert(false)} />
                 <HeavyFileAlert isDisplayed={HeavyAlert} onClose={() => setHeavyAlert(false)} />
                 <CopiedAlert isDisplayed={CopiedAlertv} onClose={() => setCopiedAlertv(false)} />
-                <img src="/homeicon.png"  onClick={() => window.location.reload()} className="fixed left-4 w-4.5 h-5 lg:w-6 lg:h-6 top-3 cursor-pointer hover:opacity-70" />
+                <img src="/homeicon.png" onClick={() => window.location.reload()} className="fixed left-4 w-4.5 h-5 lg:w-6 lg:h-6 top-3 cursor-pointer hover:opacity-70" />
 
                 {uploaded === false && (
                     <>
-                        <p className="mt-8 text-black text-xl lg:text-3xl text-center">Upload whatever you want here!</p>
+                    <div>
+                        <p className="mt-10 text-black text-3xl lg:text-4xl text-center font-semibold">Share anything,</p>
+                        <p className=" text-[#277DFF] text-3xl lg:text-4xl text-center font-semibold">anywhere</p>
+
+                    </div>
+                        <p className="text-center text-sm text-gray-700 mt-2 px-5">Upload a file or paste text to get a shareable link and QR code in seconds.</p>
+                        
                         <div className="mt-13  w-60 lg:w-150 flex flex-row ">
                             <div onClick={changeTypeInput}
                                 className={`flex items-center justify-center bg-[#F4F4F4]/50 ${inputtype === "text" ? "border-[#b4b4b4] z-3" : "border-[#e2e2e2] z-1"} border-[#6d6d6d] -mb-0.5  border-t-2 border-l-2 border-r-2  rounded-t-xl w-13 h-6 lg:h-8 lg:w-18 `}>

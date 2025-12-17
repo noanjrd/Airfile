@@ -7,23 +7,18 @@ import path from "path"
 import { lt } from "drizzle-orm";
 import { unlink } from "fs/promises";
 
-async function deleteAuto()
-{
-  const period = Number(process.env.NEXT_PUBLIC_EXPIRATION_FILES_TIME) // changer si je veux plus de 1 heure
+async function deleteAuto() {
+  const period = Number(process.env.NEXT_PUBLIC_EXPIRATION_FILES_TIME)
   const now = Date.now()
   const limit = new Date(now - period)
-  // await db.delete(pages).where(lt(pages.createdAt, limit)) //lt = less than
   const allfiles = await db.select().from(content).where(lt(content.createdAt, limit)) //lt = less than
-  for (const el of allfiles)
-  {
-    if (el.filepaths)
-    {
-      for (const filepath of el.filepaths)
-      {
+  for (const el of allfiles) {
+    if (el.filepaths) {
+      for (const filepath of el.filepaths) {
         const fullPath = path.join(process.cwd(), 'uploads', filepath)
         try {
           await unlink(fullPath)
-        } catch (err){
+        } catch (err) {
           console.error(err)
         }
 
@@ -55,9 +50,8 @@ export async function POST(req: Request) {
       .where(eq(pages.link, pagelink))
     console.log(data);
     if (data.length === 0) {
-      console.log("File not found")
       return Response.json({
-        success: false,  reason: "filenotfound"
+        success: false, reason: "No file found"
       })
     }
 
@@ -69,36 +63,31 @@ export async function POST(req: Request) {
       })
     }
     else if (data[0].type === "file" && data[0].filepaths) {
-      // const filePaths = []
       const files = [];
-      for (let i = 0; i < data[0].filepaths.length; i++)
-      {
+      for (let i = 0; i < data[0].filepaths.length; i++) {
         const filePath = path.join(process.cwd(), "uploads", data[0].filepaths[i])
         const fileName = data[0].filenames?.[i]
-        // data[0].filepaths.forEach((filepath) => {
-          // filePaths.push(path.join(process.cwd(), "uploads", filepath))
-        // })
+     
 
-        try{
+        try {
           const fileBuffer = await readFile(filePath)
           files.push({
-            filename : fileName,
-            filePath : filePath,
+            filename: fileName,
+            filePath: filePath,
             fileData: fileBuffer.toString('base64'),
-            size : fileBuffer.length,
+            size: fileBuffer.length,
           })
         }
-        catch (err){
+        catch (err) {
           console.error(`Error reading file ${data[0].filepaths[i]}:`, err);
         }
       }
-      // console.log("workin")
 
       return Response.json({
         success: true,
         type: "file",
         files: files,
-        count : files.length
+        count: files.length
       })
     }
     else {
@@ -106,8 +95,6 @@ export async function POST(req: Request) {
     }
 
   } catch (err: any) {
-    // console.error(err);
-
     return Response.json({ success: false, error: err.message });
   }
 

@@ -2,7 +2,7 @@ import { db } from "@/db";
 import { content, pages } from "@/db/schema";
 import { writeFile, mkdir } from "fs/promises";
 import { existsSync } from "fs";
-
+import path from "path";
 
 function generateRandomString(length: number) {
     const choices: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -18,39 +18,52 @@ export async function POST(req: Request) {
     try {
         const data = await req.formData();
         const typedata = data.get("type") as string
+        const max_size = Number(process.env.NEXT_PUBLIC_MAX_SIZE_FILES_BYTES || '104857600')
         if (typedata === "text") {
             const textinput = data.get("textinput") as string
             const [inserteddata] = await db.insert(content).values({
-                text : textinput
+                text: textinput
             }).returning({ id: content.id })
             const pagelink = generateRandomString(5)
             await db.insert(pages).values({
-                fileid : inserteddata.id,
-                link : pagelink,
-                type : "text"
+                fileid: inserteddata.id,
+                link: pagelink,
+                type: "text"
             })
-            return Response.json({ sucess: true, link: pagelink})
+            return Response.json({ sucess: true, link: pagelink })
         }
         if (typedata === "file") {
             let filesdata = data.getAll("files")
-            //  data.get("file") as File;
             const filenamestemp = []
             const filepathstemp = []
             if (!filesdata)
-                console.log("Error in file")
-            for (const file of filesdata)
             {
-                if (file instanceof File)
-                {
+                return Response.json(
+                    {
+                        success : false,
+                        error : "No file found"
+                    }
+                )
+            }
+            for (const file of filesdata) {
+                if (file instanceof File) {
+
+                    if (file.size > max_size) {
+                        return Response.json(
+                            {
+                                success: false,
+                                error: "File '" + file.name + "' too heavy"
+                            }
+                        )
+                    }
                     const arrayBuffer = await file.arrayBuffer()
                     const buffer = Buffer.from(arrayBuffer)
-                    if (!existsSync("./uploads")){
+                    if (!existsSync("./uploads")) {
                         await mkdir("./uploads")
                     }
-                    const  type = file.type
-                    let extension = ""
-                    if (type.includes("/")) {
-                        extension = "." + type.split("/")[1]
+                    const extension = path.extname(file.name).toLowerCase()
+                    if (!extension) {
+                        extension == ".bin"
                     }
                     const iDfile = crypto.randomUUID()
                     await writeFile("./uploads/" + iDfile + extension, buffer)
@@ -72,12 +85,12 @@ export async function POST(req: Request) {
                 {
                     link: pagelink,
                     fileid: insertedFile.id,
-                    type : "file"
+                    type: "file"
                 },
             )
             return Response.json({ sucess: true, link: pagelink })
         }
-        return Response.json({ sucess: false})
+        return Response.json({ sucess: false })
     }
     catch (err: any) {
         return Response.json({ success: false, error: err.message })
