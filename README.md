@@ -89,9 +89,9 @@ Airfile/
 
 ## 📸 Preview
 
-![Home screenshot 2](preview/2.png)
-![Send page](preview/3.png)
-![Get page](preview/4.png)
+![Home screenshot 2](preview/1.png)
+![Send page](preview/2.png)
+![Get page](preview/3.png)
 
 ## 🧪 Development
 
