@@ -76,17 +76,6 @@ Then open your browser at:
 http://localhost:3000
 ```
 
-## 📂 Project Structure
-
-```
-Airfile/
-├── src/
-├── docker-compose.yml
-├── Dockerfile
-├── Makefile
-└── README.md
-```
-
 ## 📸 Preview
 
 ![Home screenshot 2](preview/1.png)
