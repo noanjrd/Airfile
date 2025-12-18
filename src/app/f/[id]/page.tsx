@@ -82,7 +82,7 @@ export default function FilePage() {
                             </div>
                         )}
                         {textoutput && (
-                            <div className="relative mt-13 xl:mt-20  w-70 sm:w-100 h-30  lg:w-150 lg:h-50 border-2 border-gray-500 bg-[#F4F4F4]/50 rounded-xl  p-2">
+                            <div className="relative mt-13 xl:mt-20  w-70 sm:w-100 h-30  lg:w-150 lg:h-50 border-2 border-[#b4b4b4] bg-[#F4F4F4]/50 rounded-xl  p-2">
                                 <p className="text-black text-sm xl:text-base overflow-hidden text-ellipsis h-25 lg:h-45">{textoutput}</p>
                                 {/* <button className="w-18 h-7 text-sm bg-black text-white rounded-4xl absolute bottom-1 right-1">Copy</button> */}
                             </div>

@@ -37,7 +37,7 @@ cd Airfile
 
 ### Environment Variables
 
-Create a ```.env.local``` file in the folder ```src``` of the project.
+Create a ```.env.local``` file in the ```src``` folder of the project.
 
 Variables to configure
 ```

@@ -2,10 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 
-
-// cette page a ete faite avec chatgpt
-
-// Importez la bibliothèque QR Code (assurez-vous que le fichier est accessible)
 declare global {
   interface Window {
     QRCode: any;
@@ -31,11 +27,10 @@ export default function QRCodeComponent({
   const qrCodeInstance = useRef<any>(null);
 
   useEffect(() => {
-    // Charger le script QR Code s'il n'est pas déjà chargé
     const loadQRCode = () => {
       if (typeof window !== 'undefined' && !window.QRCode) {
         const script = document.createElement('script');
-        script.src = '/qrcode.js'; // Copiez qrcode.js dans le dossier public
+        script.src = 'qrcode.js';
         script.onload = () => {
           createQRCode();
         };
@@ -47,15 +42,12 @@ export default function QRCodeComponent({
 
     const createQRCode = () => {
       if (qrRef.current && window.QRCode) {
-        // Nettoyer l'instance précédente
         if (qrCodeInstance.current) {
           qrCodeInstance.current.clear();
         }
         
-        // Vider le conteneur
         qrRef.current.innerHTML = '';
         
-        // Créer une nouvelle instance
         qrCodeInstance.current = new window.QRCode(qrRef.current, {
           text,
           width,
