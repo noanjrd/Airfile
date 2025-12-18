@@ -92,8 +92,3 @@ cd src
 npm install
 npm run dev
 ```
-
-## 🧑‍💻 Author
-
-* **Noan Jard**
-
