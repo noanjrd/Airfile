@@ -4,7 +4,7 @@ all:
 build:
 	cd src && sudo docker compose build
 
-start:
+up:
 	cd src && sudo docker compose up -d
 
 down:

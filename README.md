@@ -61,7 +61,7 @@ Build and start the containers:
 
 ```bash
 make build
-make start
+make up
 ```
 
 Or manually:
