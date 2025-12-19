@@ -34,7 +34,7 @@ export function PreviewFile({ files }: PreviewFileProps) {
             }
             else {
                 gridItems.push(
-                    <div key={i} className={`bg-gray-200 w-full gap-4 ${reach === 2 ? 'h-25 xl:h-40' : 'h-25 xl:h-40'} border rounded-lg flex flex-col items-center justify-center`}>
+                    <div key={i} className={`bg-gray-200/40 w-full gap-4 ${reach === 2 ? 'h-25 xl:h-40' : 'h-25 xl:h-40'} rounded-lg flex flex-col items-center justify-center`}>
                         <img src="/fileicon.png"
                             className="w-4 h-5 xl:w-7 xl:h-9" />
                         <p className="text-black text-center truncate w-9/12 text-xs xl:text-base">{file.name}</p>
