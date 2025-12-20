@@ -1,0 +1,9 @@
+/* Style par défaut (light mode) */
+.EmojiPickerReact {
+  --epr-emoji-size: 22px !important ;    /* taille des emojis */
+  /* --epr-emoji-gap: 5px !important; */
+}
+
+.EmojiPickerReact .epr-header {
+  display: none;
+}

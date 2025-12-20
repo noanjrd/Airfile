@@ -7,6 +7,8 @@ import { PreviewFileHome } from "@/components/PreviewFileHome";
 import { HeavyFileAlert } from "@/components/HeavyFileAlert";
 import { UploadedAlert } from "@/components/UploadedAlert";
 import { CopiedAlert } from "@/components/CopiedAlert";
+import EmojiPicker from 'emoji-picker-react';
+import "@/styles/emojiStyles.css";
 
 
 export default function Home() {
@@ -21,7 +23,8 @@ export default function Home() {
     const [HeavyAlert, setHeavyAlert] = useState(false)
     const [CopiedAlertv, setCopiedAlertv] = useState(false)
     const [inputtype, setInputtype] = useState("text")
-    const MAX_FILE_SIZE = Number(process.env.NEXT_PUBLIC_MAX_SIZE_FILES_BYTES) || 1024 * 1024;
+    const [emojiWindow, setemojiWindow] = useState(false)
+    const MAX_FILE_SIZE = Number(process.env.NEXT_PUBLIC_MAX_SIZE_FILES_BYTES) || 104857600;
 
     useEffect(() => {
         console.log("link", linktofile);
@@ -115,7 +118,12 @@ export default function Home() {
         }
     }
 
+    const updateTextWIthEmoji = (emojiData: any) => {
+        const texttemp = textinput + emojiData.emoji
+        setTextinput(texttemp)
 
+
+    }
     return (
         <>
             <div className="flex flex-col w-full min-h-screen items-center    font-sans">
@@ -126,13 +134,13 @@ export default function Home() {
 
                 {uploaded === false && (
                     <>
-                    <div>
-                        <p className="mt-10 text-black text-3xl lg:text-4xl text-center font-semibold">Share anything,</p>
-                        <p className=" text-[#277DFF] text-3xl lg:text-4xl text-center font-semibold">anywhere</p>
+                        <div>
+                            <p className="mt-10 text-black text-3xl lg:text-4xl text-center font-semibold">Share anything,</p>
+                            <p className=" text-[#277DFF] text-3xl lg:text-4xl text-center font-semibold">anywhere</p>
 
-                    </div>
+                        </div>
                         <p className="text-center text-sm text-gray-700 mt-2 px-5">Upload a file or paste text to get a shareable link and QR code in seconds.</p>
-                        
+
                         <div className="mt-13  w-60 lg:w-150 flex flex-row ">
                             <div onClick={changeTypeInput}
                                 className={`flex items-center justify-center bg-[#F4F4F4]/50 ${inputtype === "text" ? "border-[#b4b4b4] z-3" : "border-[#e2e2e2] z-1"} border-[#6d6d6d] -mb-0.5  border-t-2 border-l-2 border-r-2  rounded-t-xl w-13 h-6 lg:h-8 lg:w-18 `}>
@@ -144,9 +152,17 @@ export default function Home() {
                             </div>
                         </div>
                         {inputtype === "text" && (
-                            <div className=" flex w-full justify-center z-2">
-                                <textarea placeholder="Type your text here"
-                                    className="  focus:outline-none  w-60 h-30 lg:w-150 lg:h-50 border-2 text-xs lg:text-base rounded-b-xl rounded-tr-xl border-[#b4b4b4] bg-[#F4F4F4]/50 text-black px-2 py-2" onChange={changeTextinput}></textarea>
+                            <div className="relative flex w-60 h-full lg:w-150 lg:h-full justify-center z-2">
+                                <textarea placeholder="Type your text here" value={textinput}
+                                    className="  focus:outline-none  w-60 h-30 lg:w-150 lg:h-50 border-2 text-xs lg:text-base rounded-b-xl rounded-tr-xl border-[#b4b4b4] bg-[#F4F4F4]/50 text-black pl-2 py-2 pr-8" onChange={changeTextinput}>
+                                </textarea>
+                                <div className="items-center justify-center absolute w-7 h-7 right-1 top-2 rounded-lg hover:opacity-60 cursor-pointer  hidden lg:block" onClick={() => setemojiWindow(!emojiWindow)}>
+                                    <img src="/emojiicon.png" className="w-6 h-6" />
+                                </div>
+                                <div className="absolute -right-57 hidden lg:block ">
+                                    < EmojiPicker open={emojiWindow} searchDisabled={true} onEmojiClick={updateTextWIthEmoji} width={220} height={300} previewConfig={{ showPreview: false }} />
+                                </div>
+
                             </div>
                         )}
                         {inputtype === "file" && (
@@ -183,9 +199,10 @@ export default function Home() {
                 }
                 {uploaded === true && (
                     <div className="flex flex-col justify-center items-center mt-8 px-2 w-full h-full">
-                        <p className=" text-black text-2xl text-center   lg:text-3xl max-w-sm mx-auto  ">Ready to share!</p>
+                        <p className=" text-black  text-center text-3xl lg:text-4xl font-semibold max-w-sm mx-auto  ">Ready to share!</p>
+                                                <p className="text-center text-sm text-gray-700 mt-2 px-5">You can now share the link to your content with anyone.</p>
                         <p className="mt-8 text-black text-xs"><br />{process.env.NEXT_PUBLIC_URL_SITE}/f/{linktofile}</p>
-                        <div className="border-4 rounded-2xl     border-[#277DFF] w-[180px] h-[180px] flex justify-center items-center">
+                        <div className="border-4 rounded-2xl     border-[#277DFF] w-45 h-45  flex justify-center items-center">
                             <QRCodeComponent text={process.env.NEXT_PUBLIC_URL_SITE + "/f/" + linktofile} width={140} height={140} />
                         </div>
                         <button className="mt-3 text-white bg-black rounded-full cursor-pointer w-25 h-13 hover:bg-black/80" onClick={() => { copytoClipboard(process.env.NEXT_PUBLIC_URL_SITE + "/f/" + linktofile); setCopiedAlertv(true) }}>Copy</button>

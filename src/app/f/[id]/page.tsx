@@ -74,7 +74,8 @@ export default function FilePage() {
                 <CopiedAlertText isDisplayed={alertCopiedText} onClose={() => setAlertCopiedText(false)} />
                 {typeinput.length > 1 && (
                     <>
-                        <p className="text-black xl:text-5xl text-3xl mt-10 sm:mt-5 lg:mt-10 text-center font-medium">{typeinput == "file" ? "Here are your files!" : "Here is your text!"}</p>
+                        <p className="text-black text-3xl lg:text-4xl font-semibold  mt-10 sm:mt-5 lg:mt-10 text-center ">{typeinput == "file" ? "Here are your files!" : "Here is your text!"}</p>
+                        <p className="text-center text-sm text-gray-700 mt-2 px-5">{typeinput == "file" ? "Someone has shared these files with you, use them with care." : "Someone has sent you this text, use it very wisely"}</p>
                         {filesoutput.length > 0 && (
                             <div className="mt-10 sm:mt-5 lg:mt-10">
                                 {/* // <div className="mt-20 grid grid-cols-2 grid-rows-2 w-100 h-100 gap-3 border p-3 border-[#3E8BFF]/90 rounded-2xl bg-[#3E8BFF]/10"> */}

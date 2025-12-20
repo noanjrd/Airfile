@@ -30,7 +30,7 @@ export default function QRCodeComponent({
     const loadQRCode = () => {
       if (typeof window !== 'undefined' && !window.QRCode) {
         const script = document.createElement('script');
-        script.src = 'qrcode.js';
+        script.src = '/qrcode.js';
         script.onload = () => {
           createQRCode();
         };
