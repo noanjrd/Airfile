@@ -85,10 +85,11 @@ http://localhost:3000
 
 ## 🧪 Development
 
-To run the project in development mode without Docker:
+To run the project in development mode without Docker (Node.js required):
 
 ```bash
 cd src
 npm install
+npx drizzle-kit generate && npx drizzle-kit migrate
 npm run dev
 ```
